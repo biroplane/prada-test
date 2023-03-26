@@ -17,13 +17,13 @@ const addToCart = (e) => {
 <template>
   <div class="app">
     <AppHeader>Header</AppHeader>
-    <main class="py-70">
+    <main>
       <Product :item="ps.product" @add-to-cart="addToCart($event)"></Product>
     </main>
     <AppFooter></AppFooter>
   </div>
 </template>
-<style>
+<style scoped>
 .app {
   display: flex;
   flex-direction: column;
@@ -31,5 +31,20 @@ const addToCart = (e) => {
 }
 main {
   margin-top: var(--space);
+  padding: 0 70px;
+}
+@media screen and (max-width: 480px) {
+  main {
+    padding: 0 20px;
+  }
+}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  main {
+    padding: 0 20px;
+  }
+}
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+}
+@media screen and (min-width: 1025px) {
 }
 </style>

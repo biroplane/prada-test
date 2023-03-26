@@ -28,15 +28,18 @@ const updateImg = (e) => {
   console.log('Update image ', e)
   colorImage.value = e
 }
-const thumbnail = computed(
-  () => colorImage.value || selectedColor.value.thumbnail || props.item.thumbnail_ovr
-)
+// const thumbnail = computed(
+//   () => colorImage.value || selectedColor.value.thumbnail || props.item.thumbnail_ovr
+// )
 
 const addToCart = () => {
   const _item = {
     qty: selectedQty.value,
     size: selectedSize.value,
-    color: selectedColor.value
+    color: selectedColor.value,
+    name: props.item.name,
+    description: props.item.shortDescription,
+    price: props.item.price.find((p) => p.usage == 'Display').value
   }
   emits('addToCart', { ..._item })
 }
@@ -44,10 +47,10 @@ const addToCart = () => {
 
 <template>
   <div class="grid-12 container">
-    <div class="span-7">
+    <div class="image-gallery-container">
       <ImageGallery :item="item" />
     </div>
-    <div class="span-5 data">
+    <div class="data">
       <h3>{{ item.name }}</h3>
       <div class="flex">
         <ul class="stars">
@@ -61,7 +64,7 @@ const addToCart = () => {
       </div>
       <div class="price">{{ price }}</div>
       <p class="description">
-        {{ item.shortDescription }}
+        {{ item.longDescription }}
       </p>
       <div class="details">
         <div class="variants">
@@ -104,8 +107,12 @@ const addToCart = () => {
   height: 710px;
   background-color: #f7f7f7;
 } */
+.image-gallery-container {
+  grid-column: span 7;
+}
 .data {
   margin-left: var(--space);
+  grid-column: span 5;
 }
 .data .details {
   padding: var(--half-space) 0 var(--space);
@@ -195,11 +202,39 @@ const addToCart = () => {
 .ctas button.add:disabled {
   opacity: 0.75;
   cursor: not-allowed;
+  white-space: nowrap;
 }
 .ctas button.save {
   border: 1px solid #e5e5e5;
   height: 45px;
   width: 45px;
   padding: 12px;
+}
+@media screen and (max-width: 480px) {
+  .image-gallery-container {
+    grid-column: span 12;
+  }
+  .main-image {
+    width: 100% !important;
+  }
+  .data {
+    margin-left: 0;
+    grid-column: span 12;
+  }
+  .ctas {
+    margin-top: 35px;
+  }
+}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .ctas button.add {
+    padding: 0 20px;
+  }
+}
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .variants {
+    flex-direction: column;
+  }
+}
+@media screen and (min-width: 1025px) {
 }
 </style>

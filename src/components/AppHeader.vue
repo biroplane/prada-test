@@ -1,18 +1,12 @@
 <script setup lang="ts">
-import { useCartStore } from '@/stores/cart'
 import { useNavigationStore } from '@/stores/navigation'
 import AppDrawer from './AppDrawer.vue'
-import Badge from './Badge.vue'
-import ShoppingCart from './Icons/ShoppingCart.vue'
-const cartStore = useCartStore()
+import ShoppingBag from './ShoppingBag.vue'
 const { mainMenu } = useNavigationStore()
 </script>
 <template>
   <header>
     <div class="hero fixed">
-      <!-- <button>
-        <IconHamburger :size="23" />
-      </button> -->
       <AppDrawer></AppDrawer>
       <ul class="main-menu">
         <li v-for="(item, i) in mainMenu" :key="i">
@@ -24,9 +18,7 @@ const { mainMenu } = useNavigationStore()
       </div>
       <div class="grow"></div>
       <div class="">
-        <ShoppingCart :size="28">
-          <Badge v-if="cartStore.cart.length > 0" :count="cartStore.cart.length"></Badge>
-        </ShoppingCart>
+        <ShoppingBag></ShoppingBag>
       </div>
     </div>
     <div class="grid-12 container">
@@ -80,6 +72,9 @@ header {
   position: absolute;
   width: 100%;
 }
+.logo img {
+  object-fit: contain;
+}
 .grid-12 {
   height: 100%;
 }
@@ -94,7 +89,7 @@ header {
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  grid-column: span 5;
+  grid-column: span 12;
 }
 .grid-12 ul.breadcrumb {
   display: flex;
@@ -113,24 +108,68 @@ ul.breadcrumb li:last-child {
   font-weight: 600;
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 480px) {
+  header {
+    width: 100%;
+    height: 375px;
+  }
+  .hero {
+    height: 72px;
+  }
+  .main-menu {
+    display: none;
+  }
+  .hero {
+    padding: 20px;
+  }
+  .logo {
+    height: 20px;
+    left: 0;
+  }
+
+  .hero-detail h1 {
+    font-size: 1.375rem;
+  }
+  .grid-12 .hero-detail {
+    padding: 20px;
+  }
+  .grid-12 ul.breadcrumb {
+    font-size: 0.875rem;
+  }
 }
-@media screen and (min-width: 376px) and (max-width: 768px) {
+@media screen and (min-width: 481px) and (max-width: 768px) {
   /* .main-menu{
     display: none;
   } */
   header {
-    height: 300px;
+    height: 375px;
   }
-  .grid-12 .hero-detail {
-    grid-column: span 7 !important;
+  .hero {
+    padding: 20px 20px;
+    height: 72px;
+  }
+  .hero-detail {
+    padding: 0 20px;
+  }
+  .logo {
+    height: 20px;
+    left: 0;
   }
 }
 @media screen and (min-width: 769px) and (max-width: 1024px) {
   header {
     height: 400px;
   }
+  .main-menu {
+    display: none;
+  }
+  .hero-detail {
+    padding: 0px 45px;
+  }
 }
 @media screen and (min-width: 1025px) {
+  .hero-detail {
+    padding: 0px 70px;
+  }
 }
 </style>

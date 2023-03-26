@@ -12,6 +12,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@floating-ui/vue": "^0.2.1",
+    "@vueuse/core": "^9.13.0",
     "pinia": "^2.0.32",
     "the-new-css-reset": "^1.8.4",
     "vue": "^3.2.47",
